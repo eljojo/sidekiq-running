@@ -6,7 +6,7 @@ module Sidekiq
       base.extend ClassMethods
     end
 
-    class ClassMethods
+    module ClassMethods
       def queue_name
         sidekiq_options_hash["queue"].to_s || "default"
       end
