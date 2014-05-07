@@ -1,6 +1,6 @@
 # Sidekiq::Running
 
-TODO: Write a gem description
+Small extension to Sidekiq that allows you to see if a job is queued or running.
 
 ## Installation
 
@@ -12,17 +12,37 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install sidekiq-running
-
 ## Usage
 
-TODO: Write usage instructions here
+Include ``Sidekiq::Running`` in your worker, like this:
+```ruby
+class HardWorker
+  include Sidekiq::Worker
+  include Sidekiq::Running
+  def perform(name, count)
+    # do something
+  end
+end
+```
+
+Now, you can run
+```ruby
+HardWorker.queued?("buy dr.pepper", 10) # => false
+HardWorker.perform_async("buy dr.pepper", 10)
+HardWorker.queued?("buy dr.pepper", 10) # => true
+```
+
+## Methods Available
+``Sidekiq::Running`` adds the following class methods to your sidekiq workers:
+
+- queued?(*args)
+- running?(*args)
+- queued_or_running?(*args)
+- queue_name
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/sidekiq-running/fork )
+1. Fork it ( https://github.com/eljojo/sidekiq-running/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

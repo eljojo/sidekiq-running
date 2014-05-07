@@ -2,6 +2,34 @@ require "sidekiq/running/version"
 
 module Sidekiq
   module Running
-    # Your code goes here...
+    def self.included(base)
+      base.extend ClassMethods
+    end
+
+    class ClassMethods
+      def queue_name
+        sidekiq_options_hash["queue"].to_s || "default"
+      end
+
+      def queued?(*args)
+        queue = Sidekiq::Queue.new(queue_name)
+        queue.any? do |job|
+          job.klass == self.name && job.args == args
+        end
+      end
+
+      def running?(*args)
+        workers = Sidekiq::Workers.new
+        workers.to_a.any? do |worker_name, tid, work|
+          payload = work["payload"]
+          next unless payload
+          payload["queue"] == queue_name and payload["class"] == self.name && payload["args"] == args
+        end
+      end
+
+      def queued_or_running?(*args)
+        running?(*args) or queued?(*args)
+      end
+    end
   end
 end

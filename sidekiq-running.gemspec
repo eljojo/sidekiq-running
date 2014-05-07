@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Sidekiq::Running::VERSION
   spec.authors       = ["José Tomás Albornoz"]
   spec.email         = ["jojo@eljojo.net"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{Sidekiq extension to check if you have a job queued or running}
+  spec.description   = %q{Sidekiq extension to check if you have a job queued or running}
+  spec.homepage      = "https://github.com/eljojo/sidekiq-running"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
