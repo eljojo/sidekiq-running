@@ -38,6 +38,9 @@ HardWorker.queued?("buy dr.pepper", 10) # => true
 - queued?(*args)
 - running?(*args)
 - queued_or_running?(*args)
+- perform_async_unless_queued(*args)
+- perform_async_unless_running(*args)
+- perform_async_unless_queued_or_running(*args)
 - queue_name
 
 ## Contributing
