@@ -30,17 +30,35 @@ Now, you can run
 HardWorker.queued?("buy dr.pepper", 10) # => false
 HardWorker.perform_async("buy dr.pepper", 10)
 HardWorker.queued?("buy dr.pepper", 10) # => true
+
+HardWorker.perform_in(10.minutes, "whatever")
+HardWorker.scheduled?("whatever") # => 2014-10-08 15:46:20 UTC
+HardWorker.scheduled?("this is not scheduled") # => false
+
+HardWorker.running?("buy dr.pepper", 10) # => true
+HardWorker.running?("this is not running") # => false
+
+# programmed is queued or scheduled
+HardWorker.programmed?("whatever") # => 2014-10-08 15:46:20 UTC
+HardWorker.programmed?("buy dr.pepper", 10) # => true
 ```
 
 ## Methods Available
 ``Sidekiq::Running`` adds the following class methods to your sidekiq workers:
 
-- queued?(*args)
 - running?(*args)
-- queued_or_running?(*args)
-- perform_async_unless_queued(*args)
+- queued?(*args)
+- scheduled?(*args)
+
+- running_or_queued?(*args)
+- running_or_programmed?(*args)
+
 - perform_async_unless_running(*args)
-- perform_async_unless_queued_or_running(*args)
+- perform_async_unless_queued(*args)
+- perform_async_unless_scheduled(*args)
+- perform_async_unless_programmed(*args)
+- perform_async_unless_running_or_queued(*args)
+- perform_async_unless_running_or_programmed(*args)
 - queue_name
 
 ## Contributing
