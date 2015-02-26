@@ -49,6 +49,7 @@ HardWorker.programmed?("buy dr.pepper", 10) # => true
 - running?(*args)
 - queued?(*args)
 - scheduled?(*args)
+- queued_to_retry?(*args)
 
 - running_or_queued?(*args)
 - running_or_programmed?(*args)

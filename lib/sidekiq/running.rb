@@ -35,6 +35,13 @@ module Sidekiq
         scheduled_job && scheduled_job.enqueued_at or false
       end
 
+      def queued_to_retry?(*args)
+        set = Sidekiq::RetrySet.new
+        set.any? do |job|
+          job.klass == self.name && job.args == args
+        end
+      end
+
       def programmed?(*args)
         queued?(*args) or scheduled?(*args)
       end
