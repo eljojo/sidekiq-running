@@ -32,7 +32,7 @@ module Sidekiq
         scheduled_job = scheduled.find do |job|
           job.klass == self.name && job.args == args
         end
-        scheduled_job && scheduled_job.enqueued_at or false
+        scheduled_job && scheduled_job.created_at or false
       end
 
       def queued_to_retry?(*args)
